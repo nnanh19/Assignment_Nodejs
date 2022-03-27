@@ -1,0 +1,30 @@
+{
+  "name": "assignment_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nnanh19/Assignment_Nodejs.git"
+  },
+  "author": "Nguyen Nhat Anh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nnanh19/Assignment_Nodejs/issues"
+  },
+  "homepage": "https://github.com/nnanh19/Assignment_Nodejs#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.8",
+    "morgan": "^1.10.0",
+    "slugify": "^1.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
