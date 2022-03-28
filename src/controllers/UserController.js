@@ -3,14 +3,21 @@ import jwt from "jsonwebtoken";
 class UserController {
 
     async userById(req,res,next,id){
-        const user = await UserModel.findById({_id : id});
-        if(!user){
-            return res.status(400).json({
-                message : 'Người dùng không tồn tại'
-            })
+        try {
+            const user = await UserModel.findById({_id : id});
+            if(!user){
+                return res.status(400).json({
+                    message : 'Người dùng không tồn tại'
+                })
+            }
+            req.profile = user;
+            req.profile.password = undefined;
+            req.profile.signature = undefined;
+            console.log(req.profile);
+            next();
+        } catch (error) {
+            console.log(error);
         }
-        req.profile = user;
-        next();
     }
 
     async signup(req,res,next){
@@ -45,7 +52,7 @@ class UserController {
             }))
         }
 
-        const token = jwt.sign({_id : user._id }, 'secret-1999' , { expiresIn: '1h'});
+        const token = jwt.sign({_id : user._id }, '1999' , { expiresIn: '1h'});
         res.json({
             token,
             user : {
