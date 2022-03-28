@@ -37,6 +37,10 @@ UserScheme.methods = {
         } catch (error) {
             console.log(error);
         }
+    },
+    authenticate(password){
+        console.log(this.password === this.encryPassword(password));
+        return this.password === this.encryPassword(password);
     }
 }
 UserScheme.pre("save" , function(next){
