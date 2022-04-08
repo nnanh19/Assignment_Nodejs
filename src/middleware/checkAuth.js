@@ -19,11 +19,14 @@ class CheckAuth{
     isAdmin = (req, res, next) =>{
         const {role} = req.profile;
         if(role == 1){
+            next();
+        }else{
             return res.status(401).json({
                 message : 'Bạn cần đăng nhập với tư cách quản trị viên để tiếp tục sử dụng chức năng này'
             })
         }
-        next();
+        
+        
     }
 }
 

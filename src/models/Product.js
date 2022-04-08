@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const {Schema} = mongoose;
+const ObjectId = Schema.ObjectId;
 
 const ProductSchema = new Schema({
     "name" : {
@@ -26,7 +27,12 @@ const ProductSchema = new Schema({
             type: String ,
             lowercase : true,
             unique : true
-            }
+            },
+    "category" : {
+        required: true,
+        type : ObjectId,
+        ref : "category"
+    },
 }, {timestamps : true})
 
 const ProductModel = mongoose.model('product' , ProductSchema);

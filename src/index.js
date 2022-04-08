@@ -12,13 +12,10 @@ const port =  3001;
 
 const app = express();
 
-
-
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
 
-// app.use("/", (req,res) => res.json('Noname'))
 app.use("/api", apiRoute);
 
 
