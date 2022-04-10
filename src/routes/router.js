@@ -19,10 +19,13 @@ CheckAuth.isAuth , CheckAuth.isAdmin, ProductController.remove);
 
 //category
 apiRoute.get('/category/' , CategoryController.index)
-
+apiRoute.get('/category/:id' , CategoryController.getbyId)
 apiRoute.post('/category' , CategoryController.create)
+apiRoute.put('/category/:id' , CategoryController.update)
 
 apiRoute.get('/category/:slug', CategoryController.slug)
+
+apiRoute.delete('/category/:id', CategoryController.remove)
 
 
 //auth

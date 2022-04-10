@@ -3,24 +3,28 @@ import slugify from "slugify";
 
 class ProductController {
     index (req, res , next){
-        const limitPage = req.query.limit;
-        if(limitPage){
-            const listProduct = ProductModel.find({}).limit(limitPage)
+        const q_limit = req.query.limit;
+        console.log(req.query);
+        let find = {};
+        if(q_limit){
+            const listProduct = ProductModel.find({}).limit(q_limit)
+            .then(products => res.json(products))
+            .catch(next)
+        }else if(req.query.category){
+            find = {category : req.query.category.split(',')};
+            const listProduct = ProductModel.find(find)
             .then(products => res.json(products))
             .catch(next)
         }
+        
+
         const listProduct = ProductModel.find({})
         .then(products => res.json(products))
         .catch(next)
     }
     findbyCategory (req,res,next) {
-        let find = {};
-        if(req.query.category){
-            find = {category : req.query.category.split(',')};
-        }
-        const listProduct = ProductModel.find(find)
-        .then(products => res.json(products))
-        .catch(next)
+        
+        
     }
     detail(req, res, next){
         const productDetail = ProductModel.findOne({_id: req.params.id})

@@ -33,10 +33,17 @@ class CategoryController{
             }
         })
     }
+    async getbyId(req,res , next){
+        console.log(req.params.id);
+        await Categories.findOne({_id : req.params.id})
+       .then((category) => {
+            res.status(200).json(category);
+       })
+       .catch(next)
+    }
     async create(req,res,next){
         
         const category = await new Categories({
-       
             name : req.body.name,
             slug : req.body.slug = slugify(req.body.name),
             categoryId : req.body.categoryId,
@@ -47,7 +54,17 @@ class CategoryController{
         })
         .catch(next);
     }
-    
+    update(req, res, next){
+        const newCategory = Categories.findByIdAndUpdate({_id : req.params.id},req.body)
+        .then(category => res.json(category))
+        .catch(next);
+    }
+    remove(req,res,next){
+        const newCategory = Categories.findOneAndDelete({_id : req.params.id})
+        .then(category => res.json(category))
+        .catch(next);
+    }
+
     async slug(req,res,next){
                const {child} = await Categories.findOne({slug: req.params.slug})
                 console.log(child.map((chil)=>console.log(chil)));
