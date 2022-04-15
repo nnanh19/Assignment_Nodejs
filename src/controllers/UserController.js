@@ -2,6 +2,15 @@ import UserModel from "../models/User";
 import jwt from "jsonwebtoken";
 class UserController {
 
+    async index(req, res, next){
+        await UserModel.find({})
+        .exec((error, user) => {
+            if(error) return res.status(400).json({error});
+            if(user){
+                res.status(200).json(user);
+            }
+        })
+    }
     async userById(req,res,next,id){
         try {
             const user = await UserModel.findById({_id : id});
@@ -13,7 +22,6 @@ class UserController {
             req.profile = user;
             req.profile.password = undefined;
             req.profile.signature = undefined;
-            console.log(req.profile);
             next();
         } catch (error) {
             console.log(error);

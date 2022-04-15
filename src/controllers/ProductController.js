@@ -1,16 +1,36 @@
 import ProductModel from "../models/Product.js";
 import slugify from "slugify";
 
+let find = {};
+
 class ProductController {
     index (req, res , next){
-        const q_limit = req.query.limit;
-        console.log(req.query);
-        let find = {};
-        if(q_limit){
-            const listProduct = ProductModel.find({}).limit(q_limit)
+        const Page_Size = 3;
+        var page = req.query.page ;
+        if(page < 0 ){
+            page = 1
+        }
+        if(page){
+            page = parseInt(page);
+            var skip = (page - 1) * Page_Size;
+
+            ProductModel.find({})
+            .skip(skip)
+            .limit(Page_Size)
+            .then(product =>{
+                res.json(product);
+            })
+            .catch(next)
+        }
+        var q_name = req.query.name;
+        if(q_name){
+            console.log(q_name);
+            const listProduct = ProductModel.find({name: q_name})
             .then(products => res.json(products))
             .catch(next)
-        }else if(req.query.category){
+        }
+        
+        if(req.query.category){
             find = {category : req.query.category.split(',')};
             const listProduct = ProductModel.find(find)
             .then(products => res.json(products))

@@ -9,6 +9,7 @@ class CheckAuth{
 
     isAuth = (req,res, next) =>{
         const user = req.profile._id == req.auth._id;
+        console.log(user);
         if(!user){
             return res.status(402).json({
                 message : 'Bạn không được phép truy cập'
@@ -25,8 +26,6 @@ class CheckAuth{
                 message : 'Bạn cần đăng nhập với tư cách quản trị viên để tiếp tục sử dụng chức năng này'
             })
         }
-        
-        
     }
 }
 

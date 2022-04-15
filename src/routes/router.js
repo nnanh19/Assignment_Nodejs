@@ -5,6 +5,11 @@ import UserController from "../controllers/UserController.js";
 import CheckAuth from "../middleware/checkAuth.js";
 const apiRoute = Router();
 
+
+apiRoute.get('/user', UserController.index);
+apiRoute.post('/signup', UserController.signup);
+apiRoute.post('/signin', UserController.signin )
+
 //product
 apiRoute.get('/product/' , ProductController.index);
 apiRoute.get('/product/:id' , ProductController.detail);
@@ -12,9 +17,11 @@ apiRoute.get('/product/find/byCategory' , ProductController.findbyCategory);
 
 apiRoute.post('/product/:userId' , CheckAuth.requiredSignin ,
                 CheckAuth.isAuth , CheckAuth.isAdmin, ProductController.create);
+                
 apiRoute.put('/product/:id', ProductController.update);
-apiRoute.delete('/product/:id', CheckAuth.requiredSignin ,
-CheckAuth.isAuth , CheckAuth.isAdmin, ProductController.remove);
+
+apiRoute.delete('/product/:id/:userId',CheckAuth.requiredSignin ,
+                CheckAuth.isAuth , CheckAuth.isAdmin, ProductController.remove);
 
 
 //category
@@ -27,10 +34,6 @@ apiRoute.get('/category/:slug', CategoryController.slug)
 
 apiRoute.delete('/category/:id', CategoryController.remove)
 
-
-//auth
-apiRoute.post('/signup', UserController.signup )
-apiRoute.post('/signin', UserController.signin )
 
 
 //param
